@@ -6,11 +6,10 @@ import java.util.Scanner;
 import java.util.stream.IntStream;
 
 public class Main {
-
     public static void main(String[] args) {
         int[] march = {-2, -5, -2, -4, 3, -6, -2, -1, 5, 1, 1, 0, -1, 0, 3,
                 -1, 2, 5, 2, 4, 4, 0, 6, 1, 4, 6, -1, 2, 4, 7, 11};
-
+        
         // Используем Stream API
         // Arrays.stream() для создания потока (Stream) из массива температур
         long negative_tmp = Arrays.stream(march)
