@@ -9,11 +9,10 @@ public class Main {
     public static void main(String[] args) {
         int[] march = {-2, -5, -2, -4, 3, -6, -2, -1, 5, 1, 1, 0, -1, 0, 3,
                 -1, 2, 5, 2, 4, 4, 0, 6, 1, 4, 6, -1, 2, 4, 7, 11};
-        
-        // Используем Stream API
-        // Arrays.stream() для создания потока (Stream) из массива температур
+
+        // преобразование массива в поток
         long negative_tmp = Arrays.stream(march)
-                .filter(temp -> (temp < 0))
+                .filter(temp -> (temp < 0)) // лямбда-выражение, фильтрует элементы потока
                 .count();
         System.out.println("|1 задание|\n(1)\nКоличество дней с отрицательной температурой: " + negative_tmp);
 
@@ -26,10 +25,13 @@ public class Main {
             System.out.println("(2)\nНет, не было!");
 
         // индексы
-        OptionalInt max_tmp = IntStream.range(0, march.length)
+        OptionalInt max_tmp = Arrays.stream(march)
+                .limit(7)
+                .max();
+        /*OptionalInt max_tmp = IntStream.range(0, march.length) // поток индексов
                 .filter(i -> i < 7)
                 .map(i -> march[i]) // индекс в значение(преобразование в другой тип)
-                .max();
+                .max();*/
         System.out.printf("(3)\nМаксимальная температура в первую неделю: %d\n", max_tmp.getAsInt());
 
         OptionalDouble avg_tmp = Arrays.stream(march)
@@ -46,7 +48,8 @@ public class Main {
             return;
         }
 
-        long count = Arrays.stream(sentence.split("[, ]+"))
+        // [] один символ из набора
+        long count = Arrays.stream(sentence.split("[, ]+")) // разделена по любому кол-ву пробелов, запятых
                 .filter(word -> word.endsWith("es"))
                 .count();
 
@@ -58,14 +61,13 @@ public class Main {
         String sorted_sentence = Arrays.stream(sentence.split("[, ]+"))
                 .sorted((a, b) -> Integer.compare(a.length(), b.length())) // сортировка по длине слова
                 .reduce((a, b) -> a + " " + b) // // объединить отсортированные слова в одну строку
-                .orElse(""); // Если нет слов, вернуть пустую строку
+                .orElse(""); // если нет слов, вернуть пустую строку
         System.out.printf("(2)\n%s\n", sorted_sentence);
 
         long count_nums = Arrays.stream(sentence.split("\\D+"))
-                .mapToInt(word -> Integer.parseInt(word)) // Integer::parseInt
+                .filter(s -> !s.isEmpty()) // пустые строки
+                .mapToInt(Integer::parseInt) // word -> Integer.parseInt(word)
                 .sum();
         System.out.printf("(*)\nСумма целых чисел: %s", count_nums);
     }
-
-
 }
