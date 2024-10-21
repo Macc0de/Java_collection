@@ -1,4 +1,4 @@
-package Lab05;
+package lab05;
 
 public class SchoolBoy extends Studying {
     private int olympiad_oblast;

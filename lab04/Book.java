@@ -1,4 +1,4 @@
-package Lab04;
+package lab04;
 
 public class Book {
     private String title;

@@ -1,5 +1,5 @@
 // 5 задача
-package Lab01;
+package lab01;
 import java.util.Scanner;
 
 public class Third {

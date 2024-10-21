@@ -1,4 +1,4 @@
-package Lab02;
+package lab02;
 import java.util.Random;
 
 public class Fourth_lab2 {

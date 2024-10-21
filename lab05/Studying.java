@@ -1,4 +1,4 @@
-package Lab05;
+package lab05;
 
 public abstract class Studying {
     private String name;

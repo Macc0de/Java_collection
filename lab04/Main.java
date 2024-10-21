@@ -1,4 +1,4 @@
-package Lab04;
+package lab04;
 // Композиция
 public class Main {
     public static void infoReader(Book book, Reader person, String return_month, int return_day) {

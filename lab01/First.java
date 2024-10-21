@@ -1,4 +1,4 @@
-package Lab01;
+package lab01;
 import java.util.Scanner; // пакет util
 
 public class First {

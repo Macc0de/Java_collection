@@ -1,4 +1,4 @@
-package Lab05;
+package lab05;
 
 public class Student extends Studying {
     private int[] grades_coursework; // Оценки за курсовые

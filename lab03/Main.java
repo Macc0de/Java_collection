@@ -1,4 +1,4 @@
-package Lab03;
+package lab03;
 
 public class Main {
     public static void format_print(TouristBus bus, int num) {
