@@ -1,4 +1,6 @@
 package lab07;
+import java.util.*;
+import java.io.*;
 
 public class SchoolBoy {
     private String surname;
@@ -21,6 +23,68 @@ public class SchoolBoy {
         setNumClass(num_class);
         setSubject(subject);
         setGrade(grade);
+    }
+
+    public boolean equal(String subject) {
+        return getSubject().equals(subject);
+    }
+    public boolean equal(byte grade) {
+        return getGrade() == grade;
+    }
+    public boolean equal(String surname, String name) {
+        return (getSurname().equals(surname) && getName().equals(name));
+    }
+
+    public void print() {
+        System.out.printf("%s %s, ", getSurname(), getName());
+    }
+
+    public static void read_file(String file_name, TreeMap<Byte, ArrayList<SchoolBoy>> journal) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(file_name))) { // для чтения построчно
+            String str;
+            while((str = reader.readLine()) != null) { // Пока есть строки
+                String[] word = str.split("\\s+"); // Парсинг
+
+                String surname = word[0];
+                String name = word[1];
+                byte num_class = Byte.parseByte(word[2]);
+                String subject = word[3];
+                byte grade = Byte.parseByte(word[4]);
+
+                SchoolBoy school_boy = new SchoolBoy(surname, name, num_class, subject, grade);
+
+                // существует ли ключ(num_class), если такого нет то создает новый элемент с этим ключом и пустым списком(+добавляет в этот список ученика)
+                // если ключ уже существует -> добавить ученика в список
+                journal.computeIfAbsent(num_class, key -> new ArrayList<>()).add(school_boy);
+            }
+        }
+        catch (IOException e) {
+            System.out.println("Ошибка чтения файла: " + e.getMessage());
+        }
+    }
+
+    public static void write_file(ArrayList<SchoolBoy> array_school, byte num_class) {
+        try(FileWriter writer = new FileWriter("class" + num_class + ".txt")) {
+            for(SchoolBoy school_boy : array_school)
+                writer.write(school_boy.getSurname() + " " + school_boy.getName() + "\n");
+        } catch (IOException e) {
+            System.out.println("Ошибка записи в файл: " + e.getMessage());
+        }
+    }
+
+    public static void write_file2(TreeSet<String> subjects, ArrayList<SchoolBoy> array_school, byte num_class) {
+        try(FileWriter writer = new FileWriter("Your class" + num_class + ".txt")) {
+            for(String subject : subjects) { // Список предметов
+                writer.write(subject + ":\n");
+                for(SchoolBoy school_boy : array_school) {
+                    if(school_boy.equal(subject))
+                        writer.write(school_boy.getSurname() + " " + school_boy.getName() + " " + school_boy.getGrade() + "\n");
+                }
+                writer.write("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Ошибка записи в файл: " + e.getMessage());
+        }
     }
 
     public void setSurname(String surname) { this.surname = surname; }

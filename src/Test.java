@@ -1,4 +1,3 @@
-package lab07;
 import java.util.HashSet;
 
 public class Test {
