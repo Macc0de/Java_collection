@@ -1,64 +1,70 @@
 package Individ1;
-import lab07.SchoolBoy;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 // 36
 
 public class Main {
-    /*public boolean check_input(int n) {
-    }*/
+    public static void read_polynom(BufferedReader reader, Polynomial polynom) throws IllegalArgumentException, IOException {
+        int size = Integer.parseInt(reader.readLine());
+        int index = size;
+        String[] line = reader.readLine().split(" ");
+        if((size + 1) != line.length)
+            throw new IllegalArgumentException("Неверное значение размера мн-на!");
+
+        for (int j = 0; size >= 0; size--, j++) {
+            double coef = Double.parseDouble(line[j]);
+            polynom.setCoefficient(size, coef);
+        }
+
+        if(polynom.getCoefficient(index) == 0.0 || polynom.getCoefficient(index) == 0.0)
+            throw new IllegalArgumentException("Пустой мн-н!");
+    }
+
     public static void main(String[] args) {
-        Polynomial polynom = new Polynomial(); // 3x^2 + 2x + 1
+        Polynomial polynom1 = new Polynomial();
+        Polynomial polynom2 = new Polynomial();
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("polynom"))) { // для чтения построчно
-            String str;
-            while((str = reader.readLine()) != null) { // Пока есть строки
-                String[] word = str.split("\\s+"); // Парсинг
-
-                String surname = word[0];
-                String name = word[1];
-                byte num_class = Byte.parseByte(word[2]);
-                String subject = word[3];
-                byte grade = Byte.parseByte(word[4]);
-
-                SchoolBoy school_boy = new SchoolBoy(surname, name, num_class, subject, grade);
-
-                // существует ли ключ(num_class), если такого нет то создает новый элемент с этим ключом и пустым списком(+добавляет в этот список ученика)
-                // если ключ уже существует -> добавить ученика в список
-                journal.computeIfAbsent(num_class, key -> new ArrayList<>()).add(school_boy);
+        try(BufferedReader reader = new BufferedReader(new FileReader("polynom.txt"))) {
+            try {
+                read_polynom(reader, polynom1);
+                read_polynom(reader, polynom2);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Исключение: " + e.getMessage());
+                return;
             }
         }
         catch (IOException e) {
-            System.out.println("Ошибка чтения файла: " + e.getMessage());
+            System.out.println("Исключение: " + e.getMessage());
+            return;
         }
 
-        int n = 1;
-        //double coef;
-
-
-        /*for(int i = n; i >= 0; i--) {
-            System.out.printf("Введите коэффициент для (x^%d): ", i);
-
-            polynom.setCoefficient(i, coef);
-        }*/
-
         System.out.print("Первый мн-н: ");
-        polynom.print();
+        polynom1.print();
 
-        System.out.print("\n(2) Второй мн-н: ");
-        Polynomial polynom2 = new Polynomial();
-        coef = 1;
-        for(int i = n; i >= 0; i--, coef += 2) // второй мн-н
-            polynom2.setCoefficient(i, coef);
+        System.out.print("Второй мн-н: ");
         polynom2.print();
 
-        System.out.print("\n(3) Сумма мн-нов: ");
-        Polynomial sum = new Polynomial();
-        sum.add(polynom2);
+        System.out.print("\n(1) Сумма мн-нов: ");
+        Polynomial sum = polynom1.sum(polynom2);
         sum.print();
+
+        System.out.print("(2) Разность мн-нов: ");
+        Polynomial subtract = polynom1.subtract(polynom2);
+        subtract.print();
+
+        System.out.print("(3) Таблица значений каждого мн-на:\n");
+        polynom1.print_table(1, 4);
+        System.out.println();
+        polynom2.print_table(3, 6);
+
+        System.out.print("\n(Дополнительно)\n(1) Произведение мн-нов:\n");
+        Polynomial multiplication = polynom1.multiply(polynom2);
+        multiplication.print();
+
+        System.out.print("\n(2) Производные мн-нов:\n");
+        polynom1.differentiate();
+        polynom2.differentiate();
     }
 }
