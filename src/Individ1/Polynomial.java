@@ -37,21 +37,6 @@ public class Polynomial {
         return maxDegree;
     }
 
-    /*public void print() {
-        // Значение + степень x
-        for (int i = degree(); i >= 0; i--) {
-            double coef = getCoefficient(i);
-            if (coef != 0.0) {
-                if (i == 1)
-                    System.out.printf("%.1fx + ", coef);
-                else if (i != 0)
-                    System.out.printf("%.1fx^%d + ", coef, i);
-                else if (i == 0)
-                    System.out.printf("%.1f", coef);
-            }
-        }
-    }*/
-
     public void print() {
         for (int i = degree(); i >= 0; i--) {
             double coef = getCoefficient(i);
@@ -135,12 +120,9 @@ public class Polynomial {
             System.out.print("0");
 
         Polynomial derivative = new Polynomial();
-
-        // Проходим по каждому коэффициенту начиная со степени 1 (степень 0 игнорируем, т.к. ее производная 0)
         for (int i = 1; i <= degree(); i++) {
-
             double coef = getCoefficient(i) * i;
-            derivative.setCoefficient(i - 1, coef); // Сохраняем в производной со степенью i-1
+            derivative.setCoefficient(i - 1, coef);
         }
         derivative.print();
     }

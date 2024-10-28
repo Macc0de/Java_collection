@@ -1,9 +1,8 @@
-package Individ1;
+package Individ1; // 36
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-// 36
 
 public class Main {
     public static void read_polynom(BufferedReader reader, Polynomial polynom) throws IllegalArgumentException, IOException {
