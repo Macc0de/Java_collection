@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class MiddlePerformance {
-    private ArrayList<Map.Entry<Byte, Double>> average_grade = new ArrayList<>();
+    private ArrayList<Map.Entry<Byte, Double>> average_grade;
 
     public MiddlePerformance() {
-        this.average_grade = new ArrayList<>();
+        average_grade = new ArrayList<>();
     }
 
     public void add(Byte key, double avg_grade) {

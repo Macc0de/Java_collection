@@ -31,19 +31,17 @@ public class SchoolBoy {
     public boolean equal(byte grade) {
         return getGrade() == grade;
     }
-    public boolean equal(String surname, String name) {
-        return (getSurname().equals(surname) && getName().equals(name));
-    }
+    public boolean equal(String surname, String name) { return (getSurname().equals(surname) && getName().equals(name)); }
 
     public void print() {
         System.out.printf("%s %s, ", getSurname(), getName());
     }
 
     public static void read_file(String file_name, TreeMap<Byte, ArrayList<SchoolBoy>> journal) {
-        try(BufferedReader reader = new BufferedReader(new FileReader(file_name))) { // для чтения построчно
+        try(BufferedReader reader = new BufferedReader(new FileReader(file_name))) { // чтение построчно
             String str;
-            while((str = reader.readLine()) != null) { // Пока есть строки
-                String[] word = str.split("\\s+"); // Парсинг
+            while((str = reader.readLine()) != null) {
+                String[] word = str.split("\\s+");
 
                 String surname = word[0];
                 String name = word[1];
@@ -53,8 +51,6 @@ public class SchoolBoy {
 
                 SchoolBoy school_boy = new SchoolBoy(surname, name, num_class, subject, grade);
 
-                // существует ли ключ(num_class), если такого нет то создает новый элемент с этим ключом и пустым списком(+добавляет в этот список ученика)
-                // если ключ уже существует -> добавить ученика в список
                 journal.computeIfAbsent(num_class, key -> new ArrayList<>()).add(school_boy);
             }
         }

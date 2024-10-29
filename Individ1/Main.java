@@ -26,7 +26,7 @@ public class Main {
         Polynomial polynom1 = new Polynomial();
         Polynomial polynom2 = new Polynomial();
 
-        try(BufferedReader reader = new BufferedReader(new FileReader("polynom.txt"))) {
+        try(BufferedReader reader = new BufferedReader(new FileReader("Individ1/polynom.txt"))) {
             try {
                 read_file(reader, polynom1);
                 read_file(reader, polynom2);

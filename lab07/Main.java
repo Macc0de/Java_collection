@@ -9,9 +9,8 @@ public class Main {
             ArrayList<SchoolBoy> array_school = entry.getValue();
             System.out.println("\n" + num_class + " класс:");
 
-            for(SchoolBoy school_boy : array_school) {
+            for(SchoolBoy school_boy : array_school)
                 school_boy.print();
-            }
 
             SchoolBoy.write_file(array_school, num_class);
         }
@@ -152,7 +151,7 @@ public class Main {
             System.out.print("Такого ученика нет!");
     }
 
-    public static void find_bestSubject(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (6)
+    public static void findBestSubject(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (6)
         System.out.print("\n\n(6)\n");
         BestSubject best_subject = new BestSubject();
 
@@ -169,9 +168,8 @@ public class Main {
     public static void main(String[] args) {
         TreeMap<Byte, ArrayList<SchoolBoy>> journal = new TreeMap<>();
 
-        SchoolBoy.read_file("data_school.txt", journal);
+        SchoolBoy.read_file("lab07/data_school.txt", journal);
 
-        // Класс - список учеников
         print_pupils(journal); // (0)
         print_grade(journal); // (1)
         print_performance(journal); // (2)

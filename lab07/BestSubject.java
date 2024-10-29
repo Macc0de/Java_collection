@@ -6,8 +6,8 @@ public class BestSubject {
     private HashMap<String, Integer> count;
 
     public BestSubject() {
-        this.sum = new HashMap<>();
-        this.count = new HashMap<>();
+        sum = new HashMap<>();
+        count = new HashMap<>();
     }
 
     public void add(SchoolBoy school_boy) {
