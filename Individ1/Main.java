@@ -5,15 +5,16 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
-    public static void read_polynom(BufferedReader reader, Polynomial polynom) throws IllegalArgumentException, IOException {
+    public static void read_file(BufferedReader reader, Polynomial polynom) throws IllegalArgumentException, IOException {
         int size = Integer.parseInt(reader.readLine());
         int index = size;
-        String[] line = reader.readLine().split(" ");
-        if((size + 1) != line.length)
+        String[] line_coefs = reader.readLine().split(" ");
+
+        if((size + 1) != line_coefs.length)
             throw new IllegalArgumentException("Неверное значение размера мн-на!");
 
         for (int j = 0; size >= 0; size--, j++) {
-            double coef = Double.parseDouble(line[j]);
+            double coef = Double.parseDouble(line_coefs[j]);
             polynom.setCoefficient(size, coef);
         }
 
@@ -27,8 +28,8 @@ public class Main {
 
         try(BufferedReader reader = new BufferedReader(new FileReader("polynom.txt"))) {
             try {
-                read_polynom(reader, polynom1);
-                read_polynom(reader, polynom2);
+                read_file(reader, polynom1);
+                read_file(reader, polynom2);
             } catch (IllegalArgumentException e) {
                 System.out.println("Исключение: " + e.getMessage());
                 return;
