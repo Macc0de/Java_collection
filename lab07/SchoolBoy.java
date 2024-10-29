@@ -37,7 +37,7 @@ public class SchoolBoy {
         System.out.printf("%s %s, ", getSurname(), getName());
     }
 
-    public static void read_file(String file_name, TreeMap<Byte, ArrayList<SchoolBoy>> journal) {
+    public static void readFile(String file_name, TreeMap<Byte, ArrayList<SchoolBoy>> journal) {
         try(BufferedReader reader = new BufferedReader(new FileReader(file_name))) { // чтение построчно
             String str;
             while((str = reader.readLine()) != null) {
@@ -59,7 +59,7 @@ public class SchoolBoy {
         }
     }
 
-    public static void write_file(ArrayList<SchoolBoy> array_school, byte num_class) {
+    public static void writeFile(ArrayList<SchoolBoy> array_school, byte num_class) {
         try(FileWriter writer = new FileWriter("class" + num_class + ".txt")) {
             for(SchoolBoy school_boy : array_school)
                 writer.write(school_boy.getSurname() + " " + school_boy.getName() + "\n");
@@ -68,7 +68,7 @@ public class SchoolBoy {
         }
     }
 
-    public static void write_file2(TreeSet<String> subjects, ArrayList<SchoolBoy> array_school, byte num_class) {
+    public static void writeFile2(TreeSet<String> subjects, ArrayList<SchoolBoy> array_school, byte num_class) {
         try(FileWriter writer = new FileWriter("Your class" + num_class + ".txt")) {
             for(String subject : subjects) { // Список предметов
                 writer.write(subject + ":\n");

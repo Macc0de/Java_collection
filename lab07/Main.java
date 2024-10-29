@@ -2,7 +2,7 @@ package lab07;
 import java.util.*;
 
 public class Main {
-    public static void print_pupils(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (0)
+    public static void printPupils(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (0)
         System.out.print("(0)");
         for(Map.Entry<Byte, ArrayList<SchoolBoy>> entry : journal.entrySet()) {
             byte num_class = entry.getKey();
@@ -12,11 +12,11 @@ public class Main {
             for(SchoolBoy school_boy : array_school)
                 school_boy.print();
 
-            SchoolBoy.write_file(array_school, num_class);
+            SchoolBoy.writeFile(array_school, num_class);
         }
     }
 
-    public static void print_grade(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (1)
+    public static void printGrade(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (1)
         System.out.print("\n\n(1)\nВведите оценку: ");
 
         byte grade; Scanner in = new Scanner(System.in);
@@ -43,7 +43,7 @@ public class Main {
         }
     }
 
-    public static void print_performance(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (2)
+    public static void printPerformance(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (2)
         System.out.print("\n\n(2)\n");
         MiddlePerformance middle_performance = new MiddlePerformance();
 
@@ -59,10 +59,10 @@ public class Main {
             middle_performance.add(entry.getKey(), avg_grade);
         }
 
-        middle_performance.sort_print();
+        middle_performance.sortPrint();
     }
 
-    public static void print_subject(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (3)
+    public static void printSubject(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (3)
         System.out.print("\n(3)\nВведите предмет: ");
 
         Scanner in = new Scanner(System.in);
@@ -88,7 +88,7 @@ public class Main {
         }
     }
 
-    public static void print_file(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (4)
+    public static void printFile(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (4)
         System.out.print("\n\n(4)\nВведите класс: ");
 
         byte num_class; Scanner in = new Scanner(System.in);
@@ -115,13 +115,13 @@ public class Main {
                 subjects.add(school_boy.getSubject());
 
             if(entry.getKey() == num_class) {
-                SchoolBoy.write_file2(subjects, array_school, num_class);
+                SchoolBoy.writeFile2(subjects, array_school, num_class);
                 break;
             }
         }
     }
 
-    public static void find_pupil(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (5)
+    public static void findPupil(TreeMap<Byte, ArrayList<SchoolBoy>> journal) { // (5)
         System.out.print("\n(5)\nВведите фамилию: ");
         String name, surname; Scanner in = new Scanner(System.in);
         boolean check = false;
@@ -168,14 +168,14 @@ public class Main {
     public static void main(String[] args) {
         TreeMap<Byte, ArrayList<SchoolBoy>> journal = new TreeMap<>();
 
-        SchoolBoy.read_file("lab07/data_school.txt", journal);
+        SchoolBoy.readFile("lab07/data_school.txt", journal);
 
-        print_pupils(journal); // (0)
-        print_grade(journal); // (1)
-        print_performance(journal); // (2)
-        print_subject(journal); // (3)
-        print_file(journal); // (4)
-        find_pupil(journal); // (5)
-        find_bestSubject(journal); // (6)
+        printPupils(journal); // (0)
+        printGrade(journal); // (1)
+        printPerformance(journal); // (2)
+        printSubject(journal); // (3)
+        printFile(journal); // (4)
+        findPupil(journal); // (5)
+        findBestSubject(journal); // (6)
     }
 }

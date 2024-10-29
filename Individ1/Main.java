@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
-    public static void read_file(BufferedReader reader, Polynomial polynom) throws IllegalArgumentException, IOException {
+    public static void readFile(BufferedReader reader, Polynomial polynom) throws IllegalArgumentException, IOException {
         int size = Integer.parseInt(reader.readLine());
         int index = size;
         String[] line_coefs = reader.readLine().split(" ");
@@ -28,8 +28,8 @@ public class Main {
 
         try(BufferedReader reader = new BufferedReader(new FileReader("Individ1/polynom.txt"))) {
             try {
-                read_file(reader, polynom1);
-                read_file(reader, polynom2);
+                readFile(reader, polynom1);
+                readFile(reader, polynom2);
             } catch (IllegalArgumentException e) {
                 System.out.println("Исключение: " + e.getMessage());
                 return;
@@ -55,9 +55,9 @@ public class Main {
         subtract.print();
 
         System.out.print("(3) Таблица значений каждого мн-на:\n");
-        polynom1.print_table(1, 4);
+        polynom1.printTable(1, 4);
         System.out.println();
-        polynom2.print_table(3, 6);
+        polynom2.printTable(3, 6);
 
         System.out.print("\n(Дополнительно)\n(1) Произведение мн-нов:\n");
         Polynomial multiplication = polynom1.multiply(polynom2);

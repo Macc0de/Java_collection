@@ -55,7 +55,7 @@ public class Polynomial {
         System.out.println();
     }
 
-    public void print_table(double a, double b){
+    public void printTable(double a, double b){
         System.out.printf("%5s   %5s\n", "x:", "f(x):");
         for (double i = a; i <= b; i++)
             System.out.printf("%5.2f   %5.2f\n", i, calculate(i));

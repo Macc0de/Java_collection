@@ -14,7 +14,7 @@ public class MiddlePerformance {
         average_grade.add(new AbstractMap.SimpleEntry<>(key, avg_grade)); // В массив <Класс, среднее значение>
     }
 
-    public void sort_print() {
+    public void sortPrint() {
         average_grade.sort((a,b) -> Double.compare(b.getValue(), a.getValue()));
 
         for(Map.Entry<Byte, Double> entry : average_grade)
