@@ -51,4 +51,3 @@ public class Chocolate {
     public String getCountryBrand() { return country_brand; }
     public float getGrade() { return grade; }
 }
-

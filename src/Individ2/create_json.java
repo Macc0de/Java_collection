@@ -1,20 +1,17 @@
 package Individ2;
 
 import com.google.gson.*;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class create_json {
     public static void main(String[] args) {
-        saveCountryDataToFile("continents.json");
+        saveCountryDataToFile("continent.json");
     }
 
     public static void saveCountryDataToFile(String filePath) {
         try {
-            System.out.println("Подключение к API...");
             URL url = new URL("https://restcountries.com/v3.1/all");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -33,7 +30,7 @@ public class create_json {
                 jsonBuilder.append(line);
             }
             reader.close();
-            System.out.println("Данные получены. Парсинг JSON...");
+            System.out.println("Парсинг JSON");
 
             JsonArray countries = JsonParser.parseString(jsonBuilder.toString()).getAsJsonArray();
             JsonArray countryContinentArray = new JsonArray();
@@ -54,11 +51,10 @@ public class create_json {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             try (FileWriter file = new FileWriter(filePath)) {
                 gson.toJson(countryContinentArray, file);
-                System.out.println("Данные успешно сохранены в файл " + filePath);
+                System.out.println("Данные успешно сохранены");
             }
 
             connection.disconnect();
-
         } catch (Exception e) {
             System.err.println("Ошибка при загрузке данных о странах: " + e.getMessage());
         }
