@@ -6,7 +6,7 @@ Atsane
 70%
 France
 3
-Togo
+Spain
 A. Morin
 Akata
 1680
@@ -1518,7 +1518,7 @@ Bittersw Origins
 70%
 U.S.A.
 3.75
-Dominican Rep.Bali
+Bali
 Bittersw Origins
 BaliSingaraja
 558
@@ -3990,7 +3990,7 @@ DUObatch 002
 70%
 U.S.A.
 3.25
-EcuadorCosta Rica
+Costa Rica
 Dark Forest
 Bolivia
 1708
@@ -4934,7 +4934,7 @@ CareneroGuapilesOcumare
 74%
 U.S.A.
 2.75
-Cost RicaVen
+Costa Rica
 Escazu
 Ocumare
 252
@@ -4944,13 +4944,13 @@ U.S.A.
 3
 Venezuela
 Ethel's Artisan (Mars)
-PeruMadagascar
+Madagascar
 666
 2011
 55%
 U.S.A.
 2.5
-PeruMadagascar
+Madagascar
 Ethel's Artisan (Mars)
 Trinidad
 666
@@ -5862,7 +5862,7 @@ Trinidad & Tobago
 64%
 Italy
 3
-TrinidadTobago
+Tobago
 Guido Castagna
 Lacri
 355
@@ -5878,7 +5878,7 @@ Guido Castagna
 64%
 Italy
 3.25
-VenTrinidadEcuador
+Ecuador
 Guittard
 Epique No. 49
 1602
@@ -6022,7 +6022,7 @@ South America and Africa
 70%
 Australia
 3
-South AmericaAfrica
+Brazil
 Harper Macaw
 Vale do Julianaw/ nibs
 1808
@@ -7198,7 +7198,7 @@ Cuana2013
 74%
 France
 2.75
-AfricaCarribeanC. Am.
+Sudan
 La Maison du Chocolat (Valrhona)
 Tobago
 1145
@@ -8278,7 +8278,7 @@ French Laundry 20th Anniversary
 75%
 U.S.A.
 3.75
-PeruBelize
+Peru
 Mast Brothers
 Shake Shack
 959
@@ -8286,7 +8286,7 @@ Shake Shack
 73%
 U.S.A.
 3.5
-PeruMad.Dom. Rep.
+Madagascar
 Mast Brothers
 Madagascar
 999
@@ -8582,7 +8582,7 @@ South America
 70%
 Amsterdam
 3.5
-South America
+Argentina
 Michel Cluizel
 ChiapasMokaya P.
 963
@@ -8966,7 +8966,7 @@ Trinidad & Tobago
 70%
 Lithuania
 3.75
-TrinidadTobago
+Tobago
 Naive
 Maranon CanyonFortunato No. 4
 1133
@@ -9350,7 +9350,7 @@ Dark 67
 67%
 U.S.A.
 2.75
-GhanaDomin. Rep
+Ghana
 Olive and Sinclair
 Dark 75
 457
@@ -9358,7 +9358,7 @@ Dark 75
 75%
 U.S.A.
 3
-GhanaDomin. Rep
+Ghana
 Olivia
 Carribean-Raw
 688
@@ -9718,7 +9718,7 @@ Duo- Gran Couva & Camino Verde
 75%
 Canada
 3.5
-TrinidadEcuador
+Ecuador
 Palette de Bine
 Gran Couva
 1399
@@ -9926,7 +9926,7 @@ Cabosse
 70%
 Belgium
 4
-VenezuelaJava
+Venezuela
 Pierre Marcolini
 Los RiosPuerto RomeroEquateur
 129
@@ -10318,7 +10318,7 @@ CaracasVenezuela and Ghana
 75%
 France
 3
-VenezuelaGhana
+Venezuela
 Pralus
 DjakartaJava and Ghana
 99
@@ -10326,7 +10326,7 @@ DjakartaJava and Ghana
 75%
 France
 3.5
-IndonesiaGhana
+Indonesia
 Pump Str Bakery
 Chocoan RainforestTeroro EscondidoESM
 1872
@@ -11078,7 +11078,7 @@ Finisterra
 72%
 U.S.A.
 3
-Ven.TrinidadMad.
+Trinidad
 Scharffen Berger
 Las Islas
 117
@@ -11886,7 +11886,7 @@ Three Amigos(ChuaoWild BoliviaD.R.)
 70%
 Canada
 4
-VenBoliviaD.R.
+Bolivia
 Soma
 Elvesia P.Black Science
 682
@@ -11910,7 +11910,7 @@ Black Science  1
 70%
 Canada
 3.75
-DREcuadorPeru
+Peru
 Soma
 Hispaniola
 377
@@ -12774,7 +12774,7 @@ GhanaPanamaEcuador
 75%
 U.S.A.
 3
-GhanaPanamaEcuador
+Panama
 Theobroma
 Piura SelectCacao Blanc
 1684
