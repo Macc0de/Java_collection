@@ -1,37 +1,49 @@
 package Individ2;
 
 import com.google.gson.*;
+import com.google.gson.internal.bind.util.ISO8601Utils;
+
 import java.io.*;
 import java.util.*;
 
 public class Main {
-    // Метод для загрузки данных о странах и их континентах из JSON-файла
-    private static void loadContinentData(TreeMap<String, String> countryToContinent) {
+    public static void loadContinentData(TreeMap<String, String> countryToContinent) {
         String file_path = "continents.json";
         try (FileReader reader = new FileReader(file_path)) {
             JsonArray countries = JsonParser.parseReader(reader).getAsJsonArray();
             for (int i = 0; i < countries.size(); i++) {
-                JsonObject countryObject = countries.get(i).getAsJsonObject();
+                JsonObject country_object = countries.get(i).getAsJsonObject();
 
-                String countryName = countryObject.get("country").getAsString();
-                String continent = countryObject.get("continent").getAsString();
+                String country = country_object.get("country").getAsString();
+                String continent = country_object.get("continent").getAsString();
 
-                countryToContinent.put(countryName, continent);
+                countryToContinent.put(country, continent);
             }
         } catch (IOException e) {
-            System.err.println("Ошибка при загрузке данных о странах: " + e.getMessage());
+            System.err.println("Ошибка при загрузке данных: " + e.getMessage());
         } catch (JsonParseException e) {
             System.err.println("Ошибка разбора JSON: " + e.getMessage());
         }
     }
 
-    private static String getContinent(String country, TreeMap<String, String> countryToContinent) {
-        return countryToContinent.get(country);
+    private static Chocolate getChocolate(String[] info) { // для readFile
+        String country_exporter = info[0];
+        String company_exporter = info[1];
+        String brand = info[2];
+        int index_expertise = Integer.parseInt(info[3]);
+        int year_expertise = Integer.parseInt(info[4]);
+        int percent_cacao = Integer.parseInt(info[5].replace("%", ""));
+        String country_brand = info[6];
+        float grade = Float.parseFloat(info[7]);
+
+        Chocolate chocolate = new Chocolate(country_exporter, company_exporter, brand, index_expertise, year_expertise,
+                percent_cacao, country_brand, grade);
+        return chocolate;
     }
 
-    public static void readFile(String file_path, TreeMap<String, ArrayList<Chocolate>> continent_chocolate) {
-        TreeMap<String, String> countryToContinent = new TreeMap<>();
-        loadContinentData(countryToContinent); // страна - континент
+    public static void readFile(String file_path, TreeMap<String, ArrayList<Chocolate>> continent_chocolate) { // (0)
+        TreeMap<String, String> country_continent = new TreeMap<>();
+        loadContinentData(country_continent);
 
         int i = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(file_path))) {
@@ -40,24 +52,12 @@ public class Main {
 
             while ((str = reader.readLine()) != null) {
                 info[i] = str;
-
                 i++;
                 if (i == 8) {
-                    String country_exporter = info[0];
-                    String company_exporter = info[1];
-                    String brand = info[2];
-                    int index_expertise = Integer.parseInt(info[3]);
-                    int year_expertise = Integer.parseInt(info[4]);
-                    int percent_cacao = Integer.parseInt(info[5].replace("%", ""));
-                    String country_brand = info[6];
-                    float grade = Float.parseFloat(info[7]);
+                    Chocolate chocolate = getChocolate(info);
 
-                    String continent = getContinent(country_exporter, countryToContinent);
-
-                    Chocolate chocolate = new Chocolate(country_exporter, company_exporter, brand, index_expertise, year_expertise,
-                            percent_cacao, country_brand, grade);
+                    String continent = chocolate.getContinent(country_continent);
                     continent_chocolate.computeIfAbsent(continent, key -> new ArrayList<>()).add(chocolate);
-
                     i = 0;
                 }
             }
@@ -86,10 +86,14 @@ public class Main {
 
             long count_countries = chocolates.stream().map(Chocolate::getCountryExporter).distinct().count();
             double percentage = (count_countries * 100.0) / count_all_countries;
-            //int bar_length = (int)(percentage / 2);
             int bar_length = (int)(percentage * 1.3);
 
-            String bar = "▃".repeat(bar_length / 3) + "▆".repeat(bar_length / 2) + "█".repeat(bar_length / 2);
+            String bar = null;
+            if(bar_length < 5)
+                bar = "▃".repeat(bar_length / 2) + "▆".repeat(bar_length / 3) + "█".repeat(bar_length / 3);
+            else
+                bar = "▃".repeat(bar_length / 3) + "▆".repeat(bar_length / 3) + "█".repeat(bar_length / 3);
+            //String bar = "█".repeat(bar_length / 3);
 
             System.out.printf("%-15s%10.2f%%       %s\n", continent, percentage, bar);
         }
@@ -103,18 +107,15 @@ public class Main {
             String continent = entry.getKey();
             flag = 0;
 
-            // среднего рейтинга по странам
             HashMap<String, Double> country_avgGrade = new HashMap<>(); // страна - сумма оценок
             HashMap<String, Integer> count_country = new HashMap<>(); // страна - кол-во
 
-            // проверить все страны континента
-            for (Chocolate chocolate : entry.getValue()) { // Массив шоколадок
-
-                if (chocolate.getYearExpertise() == year) {
+            for(Chocolate chocolate : entry.getValue()) {
+                if(chocolate.getYearExpertise() == year) {
                     String country = chocolate.getCountryExporter();
 
                     // страны с одним названием - суммирует их оценки
-                    country_avgGrade.merge(country, (double) chocolate.getGrade(), Double::sum);
+                    country_avgGrade.merge(country, (double) chocolate.getGrade(), Double::sum); // обновление значения
                     // страны с одним названием - кол-во их оценок
                     count_country.merge(country, 1, Integer::sum);
                     flag = 1;
@@ -123,20 +124,19 @@ public class Main {
             }
 
             if (flag == 1) {
-                // Рассчитываем средние оценки
-                for (String country : country_avgGrade.keySet()) {
+                for(String country : country_avgGrade.keySet()) { // средняя оценка
                     total_grade = country_avgGrade.get(country);
                     count = count_country.get(country);
                     country_avgGrade.put(country, total_grade / count);
                 }
 
-                // Сортируем по среднему рейтингу
+                // сортировка по среднему рейтингу
                 ArrayList<Map.Entry<String, Double>> sorted_countries = new ArrayList<>(country_avgGrade.entrySet());
                 sorted_countries.sort((a, b) -> Double.compare(b.getValue(), a.getValue()));
 
                 System.out.printf("(%s)\n", continent);
                 int i = 0;
-                for (Map.Entry<String, Double> country : sorted_countries) { // Страна - средняя оценка(стран много с одним названием)
+                for(Map.Entry<String, Double> country : sorted_countries) { // страна - средняя оценка
                     if (i < 10)
                         System.out.printf("%s - %.2f\n", country.getKey(), country.getValue());
                     i++;
@@ -160,7 +160,7 @@ public class Main {
 
             for(Chocolate chocolate : chocolates) {
 
-                String country_brand = chocolate.getCountryBrand(); // страна выпускающая шоколад
+                String country_brand = chocolate.getCountryBrand(); // страна, выпускающая шоколад
 
                 count_brands.put(country_brand, count_brands.getOrDefault(country_brand, 0) + 1);
                 count_countryExporters.computeIfAbsent(country_brand, k -> new HashSet<>()).add(chocolate.getCountryExporter());
@@ -224,7 +224,7 @@ public class Main {
         System.out.println("\n(3) Топ-10 лучших стран-экспортеров:");
         int year = 2006;
         if(!topBestCountryExporters(year, continent_chocolate))
-            System.out.println("Не найдено\n");
+            System.out.println("Не найдено для " + year + "\n");
 
         System.out.println("(4) Таблица: ");
         createTable(continent_chocolate);

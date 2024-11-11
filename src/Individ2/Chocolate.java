@@ -1,5 +1,7 @@
 package Individ2;
 
+import java.util.TreeMap;
+
 public class Chocolate {
     String country_exporter;
     String company_exporter;
@@ -7,7 +9,7 @@ public class Chocolate {
     int index_expertise;
     int year_expertise;
     int percent_cacao;
-    String country_brand; // страна выпускающая шоколад
+    String country_brand; // страна, выпускающая шоколад
     float grade;
 
     public Chocolate() {
@@ -31,6 +33,18 @@ public class Chocolate {
         setPercentCacao(percent_cacao);
         setCountryBrand(country_brand);
         setGrade(grade);
+    }
+
+    public String getContinent(TreeMap<String, String> country_continent) throws IllegalArgumentException {
+        if (country_exporter == null || country_exporter.isEmpty()) {
+            throw new IllegalArgumentException("Отсутствует название страны!");
+        }
+
+        String continent = country_continent.get(country_exporter);
+        if (continent == null || continent.isEmpty())
+            throw new IllegalArgumentException("Не найден континент для " + country_exporter);
+
+        return continent;
     }
 
     public void setCountryExporter(String country_exporter) { this.country_exporter = country_exporter; }

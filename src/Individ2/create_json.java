@@ -2,61 +2,61 @@ package Individ2;
 
 import com.google.gson.*;
 import java.io.*;
-import java.net.HttpURLConnection;
+import java.net.HttpURLConnection; // для отправки HTTP-запросов
 import java.net.URL;
 
 public class create_json {
-    public static void main(String[] args) {
-        saveCountryDataToFile("continent.json");
-    }
-
-    public static void saveCountryDataToFile(String filePath) {
+    public static void load_countries(String file_path) {
         try {
             URL url = new URL("https://restcountries.com/v3.1/all");
+            // создает соединение с URL, и результат приводится к HttpURLConnection, чтобы работать с HTTP-протоколом
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            // устанавливается метод HTTP-запроса GET, который используется для получения данных.
             connection.setRequestMethod("GET");
             connection.connect();
 
-            int responseCode = connection.getResponseCode();
-            if (responseCode != 200) {
-                System.err.println("Ошибка подключения к API: " + responseCode);
+            int response = connection.getResponseCode();
+            if (response != 200) {
+                System.err.println("Ошибка подключения к API: " + response);
                 return;
             }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder jsonBuilder = new StringBuilder();
+            StringBuilder json_builder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
-                jsonBuilder.append(line);
+                json_builder.append(line);
             }
             reader.close();
-            System.out.println("Парсинг JSON");
+            //System.out.println(json_builder.toString());
 
-            JsonArray countries = JsonParser.parseString(jsonBuilder.toString()).getAsJsonArray();
-            JsonArray countryContinentArray = new JsonArray();
+            JsonArray countries = JsonParser.parseString(json_builder.toString()).getAsJsonArray();
+            JsonArray country_continent = new JsonArray();
 
-            for (int i = 0; i < countries.size(); i++) {
+            for (int i = 0; i < countries.size(); i++) { // Парсинг
                 JsonObject country = countries.get(i).getAsJsonObject();
-                String countryName = country.get("name").getAsJsonObject().get("common").getAsString();
+                String country_name = country.get("name").getAsJsonObject().get("common").getAsString();
                 String continent = country.get("continents").getAsJsonArray().get(0).getAsString();
 
-                JsonObject countryContinent = new JsonObject();
-                countryContinent.addProperty("country", countryName);
-                countryContinent.addProperty("continent", continent);
+                JsonObject info = new JsonObject();
+                info.addProperty("country", country_name);
+                info.addProperty("continent", continent);
 
-                countryContinentArray.add(countryContinent);
+                country_continent.add(info);
             }
 
-            // Настраиваем Gson для форматированной записи
+            // Сохранение в json файл
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            try (FileWriter file = new FileWriter(filePath)) {
-                gson.toJson(countryContinentArray, file);
-                System.out.println("Данные успешно сохранены");
+            try (FileWriter file = new FileWriter(file_path)) {
+                gson.toJson(country_continent, file);
             }
-
             connection.disconnect();
         } catch (Exception e) {
-            System.err.println("Ошибка при загрузке данных о странах: " + e.getMessage());
+            System.err.println("Ошибка при загрузке данных: " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        load_countries("continent.json");
     }
 }
