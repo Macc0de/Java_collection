@@ -3,65 +3,65 @@ package Individ2;
 import java.util.TreeMap;
 
 public class Chocolate {
-    String country_exporter;
-    String company_exporter;
-    String brand;
-    int index_expertise;
-    int year_expertise;
-    int percent_cacao;
-    String country_brand; // страна, выпускающая шоколад
-    float grade;
+    private String countryExporter;
+    private String companyExporter;
+    private String brand;
+    private int indexExpertise;
+    private int yearExpertise;
+    private int percentCacao;
+    private String countryBrand; // страна, выпускающая шоколад
+    private float grade;
 
     public Chocolate() {
-        this.country_exporter = "";
-        this.company_exporter = "";
+        this.countryExporter = "";
+        this.companyExporter = "";
         this.brand = "";
-        this.index_expertise = 0;
-        this.year_expertise = 0;
-        this.percent_cacao = 0;
-        this.country_brand = "";
+        this.indexExpertise = 0;
+        this.yearExpertise = 0;
+        this.percentCacao = 0;
+        this.countryBrand = "";
         this.grade = 0;
     }
 
-    public Chocolate(String country_exporter, String company_exporter, String brand, int index_expertise,
-                     int year_expertise, int percent_cacao, String country_brand, float grade) {
-        setCountryExporter(country_exporter);
-        setCompanyExporter(company_exporter);
+    public Chocolate(String countryExporter, String companyExporter, String brand, int indexExpertise,
+                     int yearExpertise, int percentCacao, String countryBrand, float grade) {
+        setCountryExporter(countryExporter);
+        setCompanyExporter(companyExporter);
         setBrand(brand);
-        setIndexExpertise(index_expertise);
-        setYearExpertise(year_expertise);
-        setPercentCacao(percent_cacao);
-        setCountryBrand(country_brand);
+        setIndexExpertise(indexExpertise);
+        setYearExpertise(yearExpertise);
+        setPercentCacao(percentCacao);
+        setCountryBrand(countryBrand);
         setGrade(grade);
     }
 
-    public String getContinent(TreeMap<String, String> country_continent) throws IllegalArgumentException {
-        if (country_exporter == null || country_exporter.isEmpty()) {
+    public String getContinent(TreeMap<String, String> countryContinent) throws IllegalArgumentException {
+        if (countryExporter == null || countryExporter.isEmpty()) {
             throw new IllegalArgumentException("Отсутствует название страны!");
         }
 
-        String continent = country_continent.get(country_exporter);
+        String continent = countryContinent.get(countryExporter);
         if (continent == null || continent.isEmpty())
-            throw new IllegalArgumentException("Не найден континент для " + country_exporter);
+            throw new IllegalArgumentException("Не найден континент для " + countryExporter);
 
         return continent;
     }
 
-    public void setCountryExporter(String country_exporter) { this.country_exporter = country_exporter; }
-    public void setCompanyExporter(String company_exporter) { this.company_exporter = company_exporter; }
+    public void setCountryExporter(String countryExporter) { this.countryExporter = countryExporter; }
+    public void setCompanyExporter(String companyExporter) { this.companyExporter = companyExporter; }
     public void setBrand(String brand) { this.brand = brand; }
-    public void setIndexExpertise(int index_expertise) { this.index_expertise = index_expertise; }
-    public void setYearExpertise(int year_expertise) { this.year_expertise = year_expertise; }
-    public void setPercentCacao(int percent_cacao) { this.percent_cacao = percent_cacao; }
-    public void setCountryBrand(String country_brand) { this.country_brand = country_brand; }
+    public void setIndexExpertise(int indexExpertise) { this.indexExpertise = indexExpertise; }
+    public void setYearExpertise(int yearExpertise) { this.yearExpertise = yearExpertise; }
+    public void setPercentCacao(int percentCacao) { this.percentCacao = percentCacao; }
+    public void setCountryBrand(String countryBrand) { this.countryBrand = countryBrand; }
     public void setGrade(float grade) { this.grade = grade; }
 
-    public String getCountryExporter() { return country_exporter; }
-    public String getCompanyExporter() { return company_exporter; }
+    public String getCountryExporter() { return countryExporter; }
+    public String getCompanyExporter() { return companyExporter; }
     public String getBrand() { return brand; }
-    public int getIndexExpertise() { return index_expertise; }
-    public int getYearExpertise() { return year_expertise; }
-    public int getPercentCacao() { return percent_cacao; }
-    public String getCountryBrand() { return country_brand; }
+    public int getIndexExpertise() { return indexExpertise; }
+    public int getYearExpertise() { return yearExpertise; }
+    public int getPercentCacao() { return percentCacao; }
+    public String getCountryBrand() { return countryBrand; }
     public float getGrade() { return grade; }
 }

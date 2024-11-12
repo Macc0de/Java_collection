@@ -6,7 +6,7 @@ import java.net.HttpURLConnection; // для отправки HTTP-запрос�
 import java.net.URL;
 
 public class create_json {
-    public static void load_countries(String file_path) {
+    public static void loadCountries(String filePath) {
         try {
             URL url = new URL("https://restcountries.com/v3.1/all");
             // создает соединение с URL, и результат приводится к HttpURLConnection, чтобы работать с HTTP-протоколом
@@ -22,33 +22,33 @@ public class create_json {
             }
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuilder json_builder = new StringBuilder();
+            StringBuilder jsonBuilder = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
-                json_builder.append(line);
+                jsonBuilder.append(line);
             }
             reader.close();
-            //System.out.println(json_builder.toString());
+            //System.out.println(json_builder.toString()); // вывод
 
-            JsonArray countries = JsonParser.parseString(json_builder.toString()).getAsJsonArray();
-            JsonArray country_continent = new JsonArray();
+            JsonArray countries = JsonParser.parseString(jsonBuilder.toString()).getAsJsonArray();
+            JsonArray countryContinent = new JsonArray();
 
             for (int i = 0; i < countries.size(); i++) { // Парсинг
                 JsonObject country = countries.get(i).getAsJsonObject();
-                String country_name = country.get("name").getAsJsonObject().get("common").getAsString();
+                String countryName = country.get("name").getAsJsonObject().get("common").getAsString();
                 String continent = country.get("continents").getAsJsonArray().get(0).getAsString();
 
                 JsonObject info = new JsonObject();
-                info.addProperty("country", country_name);
+                info.addProperty("country", countryName);
                 info.addProperty("continent", continent);
 
-                country_continent.add(info);
+                countryContinent.add(info);
             }
 
             // Сохранение в json файл
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            try (FileWriter file = new FileWriter(file_path)) {
-                gson.toJson(country_continent, file);
+            try (FileWriter file = new FileWriter(filePath)) {
+                gson.toJson(countryContinent, file);
             }
             connection.disconnect();
         } catch (Exception e) {
@@ -57,6 +57,6 @@ public class create_json {
     }
 
     public static void main(String[] args) {
-        load_countries("continent.json");
+        loadCountries("continent.json");
     }
 }
