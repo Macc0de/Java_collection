@@ -34,9 +34,8 @@ public class Main {
         String countryBrand = info[6];
         float grade = Float.parseFloat(info[7]);
 
-        Chocolate chocolate = new Chocolate(countryExporter, companyExporter, brand, indexExpertise, yearExpertise,
+        return new Chocolate(countryExporter, companyExporter, brand, indexExpertise, yearExpertise,
                 percentCacao, countryBrand, grade);
-        return chocolate;
     }
 
     public static void readFile(String filePath, TreeMap<String, ArrayList<Chocolate>> continentChocolate) { // (0)
@@ -84,14 +83,12 @@ public class Main {
 
             long countCountries = chocolates.stream().map(Chocolate::getCountryExporter).distinct().count();
             double percentage = (countCountries * 100.0) / countAllCountries;
-            int barLength = (int)(percentage * 1.3);
 
-            //String bar;
-            /*if(barLength < 5)
-                bar = "▃".repeat(barLength / 2) + "▆".repeat(barLength / 3) + "█".repeat(barLength / 3);
-            else
-                bar = "▃".repeat(barLength / 3) + "▆".repeat(barLength / 3) + "█".repeat(barLength / 3);*/
-            String bar = "█".repeat(barLength / 3);
+            int totalBarLength = 65;
+            int barLength = (int)((percentage / 100) * totalBarLength);
+            int last = totalBarLength - barLength;
+
+            String bar = "█".repeat(barLength) + "░".repeat(last);
 
             System.out.printf("%-15s%10.2f%%       %s\n", continent, percentage, bar);
         }
@@ -142,7 +139,6 @@ public class Main {
                 System.out.println();
             }
         }
-
         return check;
     }
 
@@ -201,15 +197,6 @@ public class Main {
         String filePath = "data_chocolate.txt";
 
         readFile(filePath, continentChocolate);
-
-        /*for (Map.Entry<String, ArrayList<Chocolate>> entry : continent_chocolate.entrySet()) {
-            System.out.println(entry.getKey() + ":\n");
-            for(Chocolate choc : entry.getValue()) {
-                System.out.printf("%s - ", choc.getCountryExporter());
-            }
-            System.out.println("\n---------------------------");
-
-        }*/
 
         System.out.println("(1) Кол-во стран-экспортеров какао-бобов в каждой части света:");
         int countAllCountries = countCountryExporters(continentChocolate);
