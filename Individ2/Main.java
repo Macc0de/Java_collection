@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Main {
     public static void loadContinentData(TreeMap<String, String> countryContinent) {
-        String filePath = "continents.json";
+        String filePath = "Individ2/continents.json";
         try (FileReader reader = new FileReader(filePath)) {
             JsonArray countries = JsonParser.parseReader(reader).getAsJsonArray();
             for (int i = 0; i < countries.size(); i++) {
@@ -194,7 +194,7 @@ public class Main {
 
     public static void main(String[] args) {
         TreeMap<String, ArrayList<Chocolate>> continentChocolate = new TreeMap<>();
-        String filePath = "data_chocolate.txt";
+        String filePath = "Individ2/data_chocolate.txt";
 
         readFile(filePath, continentChocolate);
 
