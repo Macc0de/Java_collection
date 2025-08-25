@@ -11,9 +11,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class RPNEvaluatorTest {
     // Не хватает операндов (например, ["+"]):
     // Деление на ноль (например, ["1", "0", "/"]) ??? ArithmeticException
-
-    // Комментарии доделать
-
     // Проверить на 0 элементов
     @Test
     void whenNoElementsThrowsException() {
